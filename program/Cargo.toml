@@ -1,0 +1,9 @@
+[workspace]
+members = [
+    "my_app",
+    "scalar"
+]
+
+
+resolver = "2"
+

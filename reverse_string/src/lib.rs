@@ -1,3 +1,3 @@
 pub fn rev_str(input: &str) -> String {
-    input.chars().rev().unwrap()
+    input.chars().rev().collect()
 }

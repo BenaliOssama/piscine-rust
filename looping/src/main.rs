@@ -3,6 +3,7 @@ use std::io;
 fn main() {
     let target = String::from("The letter e");
     let mut number : u16 = 0 ;
+
     let tried = loop {
         number += 1 ;
         println!("I am the beginning of the end, and the end of time and space. I am essential to creation, and I surround every place. What am I?");
@@ -15,3 +16,4 @@ fn main() {
     };
     println!("Number of trials: {}", tried);
 }
+

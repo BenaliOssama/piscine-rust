@@ -11,10 +11,7 @@ pub fn vec_function(b: Vec<i32>) -> (Vec<i32>, Vec<f64>) {
 pub fn str_function(a: String) -> (String, String) {
     let str = a.clone();
 
-    let res: String = str.split_whitespace()
-        .map(|num| 
-            num.parse::<f64>().unwrap().abs().exp().to_string()
-         ).collect::<Vec<String>>().join(" ") /*vec<String>*/;
-
-    (a ,res.to_string() )
+    (a , str.split_whitespace().map( |num| 
+        num.parse::<f64>().unwrap().abs().exp().to_string()
+    ).collect::<Vec<String>>().join(" ") /*vec<String>*/)
 }

@@ -1,3 +1,20 @@
+
+pub fn do_operations(v: &mut [String]) {
+    // v slice of 
+    v.iter_mut().for_each(|num| {
+        if num.contains("+"){
+            *num = num.split("+").map(|num| {
+                num.parse::<i32>().unwrap()
+            }).reduce(|x, y| x + y).unwrap().to_string();
+        }else if num.contains("-"){
+            *num = num.split("-").map(|num| {
+                num.parse::<i32>().unwrap()
+            }).reduce(|x, y| x - y).unwrap().to_string();
+        }
+    });
+}
+
+
 pub fn delete_and_backspace(s: &mut String) {
     let copy = s.clone();
     s.clear();
@@ -21,5 +38,3 @@ pub fn delete_and_backspace(s: &mut String) {
     s.extend(stack.iter()) ;
 }
 
-pub fn do_operations(v: &mut [String]) {
-}

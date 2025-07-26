@@ -1,8 +1,8 @@
 pub fn tic_tac_toe(table: [[char; 3]; 3]) -> String {
     if diagonals('X', table) || horizontal('X', table) || vertical('X', table) {
         return String::from("player X won");
-    }else if diagonals('Y', table) || horizontal('Y', table) || vertical('Y', table) {
-        return String::from("player Y won");
+    }else if diagonals('O', table) || horizontal('O', table) || vertical('O', table) {
+        return String::from("player O won");
     }else{
         return String::from("tie"); 
     }
@@ -25,7 +25,7 @@ pub fn horizontal(player: char, table: [[char; 3]; 3]) -> bool {
 
 pub fn vertical(player: char, table: [[char; 3]; 3]) -> bool {
     for i in 0..3{
-        if (table[0][i] == table[1][i] && table[1][i] == table[2][i] && table[2][i] == player){
+        if table[0][i] == table[1][i] && table[1][i] == table[2][i] && table[2][i] == player{
             return true ; 
         }
     }

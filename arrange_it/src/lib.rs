@@ -1,21 +1,19 @@
 pub fn arrange_phrase(phrase: &str) -> String {
 
-    let mut stack : Vec<String> = vec![];
-    let mut fragment : Vec<&str> = phrase.split_whitespace().collect(); 
+    let mut res: Vec<String> = vec![]; 
+    let table: Vec<&str> = phrase.split_whitespace().collect();
 
-    while fragment.len() > 0 {
-        for (i, e) in fragment.iter().enumerate() {
 
-            let index = stack.len() as usize  + 1;
-            let index_str = &index.to_string();
+    while res.len() < table.len() {
 
-            if e.contains(index_str){
-                stack.push(e.replace(index_str, ""));
-                fragment.remove(i);
-                break;
+        let mut digit = res.len() + 1 ;
+        let digit_str = &digit.to_string(); 
+
+        for i in 0..table.len() {
+            if table[i].contains(digit_str) {
+                res.push(table[i].replace(digit_str , ""));//.to_string());
             }
         }
-    } 
-    return stack.join(" ");
-
+    }
+    res.join(" ")
 }

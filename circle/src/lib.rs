@@ -17,7 +17,7 @@ impl Circle {
     }
 
     pub fn diameter(self) -> f64 {
-       2.0 * self.radius * PI
+       2.0 * self.radius
     }
 
     pub fn area(self) -> f64 {
@@ -34,6 +34,6 @@ pub struct Point(pub f64,pub f64);
 
 impl Point {
     pub fn distance(self, other: Point) -> f64 {
-        ((self.0 - other.0).powf(2.0) + (self.1 - self.1).powf(2.0)).sqrt()
+        ((self.0 - other.0).powf(2.0) + (self.1 - other.1).powf(2.0)).sqrt()
     }
 }

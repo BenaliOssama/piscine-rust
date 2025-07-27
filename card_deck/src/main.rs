@@ -2,7 +2,7 @@ use card_deck::*;
 
 fn main() {
     let your_card = Card {
-        rank: Rank::random(),
+        rank: Rank::Ace,
         suit: Suit::random(),
     };
 

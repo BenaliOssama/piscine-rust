@@ -14,17 +14,15 @@ pub fn title_case(input: &str) -> String {
 }
 
 pub fn change_case(input: &str) -> String {
-    let mut res : String = String::new();
-    for char in input.chars() {
+    input.chars().map(|char| {
         if char.is_uppercase() {
-            res.push_str(&char.to_uppercase().collect::<String>());
+            char.to_lowercase().collect::<String>()
         }else if char.is_lowercase(){
-            res.push_str(&char.to_lowercase().collect::<String>());
+            char.to_uppercase().collect::<String>()
         }else{
-            res.push(char);
+            char.to_string()
         }
-    }
-    res
+    }).collect()
 }
 
 

@@ -14,11 +14,12 @@ pub fn word_frequency_counter<'a>(words: &[&'a str]) -> HashMap<&'a str, usize> 
 }
 
 pub fn nb_distinct_words(frequency_count: &HashMap<&str, usize>) -> usize {
-    let mut count : usize = 0 ; 
-    for (word , freq) in frequency_count {
-        //if *freq == 1  {
-            count += 1 ;
-        //}
-    }
-    count
+    //let mut count : usize = 0 ; 
+    // for (word , freq) in frequency_count {
+    //     //if *freq == 1  {
+    //         count += 1 ;
+    //     //}
+    // }
+    //count
+    frequency_count.len()
 }

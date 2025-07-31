@@ -1,6 +1,7 @@
 use std::fs::OpenOptions;
 use std::path::Path;
-use std::io::Write;
+use std::io::{self, Write, ErrorKind};
+use std::fs::File;
 
 
 pub fn open_or_create<P: AsRef<Path>>(path: &P, content: &str) {
@@ -11,5 +12,8 @@ pub fn open_or_create<P: AsRef<Path>>(path: &P, content: &str) {
         .append(true)
         .open(path).unwrap();
 
-    file.write_all(content.as_bytes());
+    file.write_all(content.as_bytes()).unwrap();
 }
+
+
+

@@ -8,6 +8,7 @@ pub fn open_or_create<P: AsRef<Path>>(path: &P, content: &str) {
         .read(true)
         .write(true)
         .create(true)
+        .append(true)
         .open(path).unwrap();
 
     file.write_all(content.as_bytes());

@@ -11,7 +11,7 @@ pub fn fetch_data(server: Result<&str, &str>, security_level: Security) -> Strin
     match security_level {
         Security::Unknown => server.unwrap().to_string(),
         Security::Message => server.expect("ERROR: program stops").to_string(),
-        Security::Warning => server.expect("WARNING: check the server").to_string(),
+        Security::Warning => server.unwrap_or("WARNING: check the server").to_string(),
         Security::NotFound => match server {
             Ok(str) => str.to_string(),
             Err(err) => format!("Not found: {err}"),

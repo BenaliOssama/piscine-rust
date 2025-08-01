@@ -2,17 +2,17 @@ use chrono::prelude::*;
 
 // this will be the structure that wil handle the errors
 #[derive(Debug, Eq, PartialEq)]
-pub struct FormError {
+pub struct FormError<'a> {
     // expected public fields
-    form_values: (String, String),
+    form_values: (&'a str, String),
     date: String,
     err: String,
 }
 
-impl FormError {
+impl FormError<'static > {
     pub fn new(field_name: &'static str, field_value: String, err: &'static str) -> Self {
         return FormError{
-            form_values: (field_name.to_string(), field_value.to_string()),
+            form_values: (field_name, field_value.to_string()),
             date: Local::now().format("%Y-%m-%d %H:%M:%S").to_string(), 
             err : err.to_string(),
         }

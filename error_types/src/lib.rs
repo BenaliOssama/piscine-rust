@@ -31,14 +31,14 @@ impl Form {
         return Form{name: name.to_string(), password: password.to_string()};
     }
     pub fn validate(&self) -> Result<(), FormError> {
-        if !&self.name.len() == 0 {
+        if self.name.len() == 0 {
             return Err(FormError::new(
                 "name",
                 self.name.clone(),
                 "Username is empty"
             ));
         }
-        if !&self.password.len() < 8 {
+        if self.password.len() < 8 {
             return Err(FormError::new(
                 "password",
                 self.password.clone(),

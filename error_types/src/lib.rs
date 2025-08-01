@@ -6,7 +6,7 @@ pub struct FormError<'a> {
     // expected public fields
     form_values: (&'a str, String),
     date: String,
-    err: String,
+    err: &'a str,
 }
 
 impl FormError<'static > {
@@ -14,7 +14,7 @@ impl FormError<'static > {
         return FormError{
             form_values: (field_name, field_value.to_string()),
             date: Local::now().format("%Y-%m-%d %H:%M:%S").to_string(), 
-            err : err.to_string(),
+            err : err,
         }
     }
 }

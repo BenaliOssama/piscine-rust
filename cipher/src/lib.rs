@@ -4,6 +4,9 @@ pub struct CipherError {
 }
 
 pub fn cipher(original: &str, ciphered: &str) -> Result<(), CipherError> {
+    if original.len() == 0 && ciphered.len() == 0 {
+        return Ok(());
+    }
     // get the original from the cipher
     let mut cc  = "".to_string();
     for char in original.chars() {
@@ -18,6 +21,6 @@ pub fn cipher(original: &str, ciphered: &str) -> Result<(), CipherError> {
     if &cc == ciphered {
         return Ok(());
     }else{
-        return Err(CipherError{ expected: format!("expected: {}", cc)});
+        return Err(CipherError{ expected: format!("{}", cc)});
     }
 }

@@ -4,9 +4,9 @@ use chrono::prelude::*;
 #[derive(Debug, Eq, PartialEq)]
 pub struct FormError<'a> {
     // expected public fields
-    form_values: (&'a str, String),
-    date: String,
-    err: &'a str,
+    pub form_values: (&'a str, String),
+    pub date: String,
+    pub err: &'a str,
 }
 
 impl FormError<'static > {

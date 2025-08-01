@@ -2,6 +2,12 @@ use std::{error::Error, fmt::Display};
 use std::fmt;
 use std::error;
 
+// Change the alias to use `Box<dyn error::Error>`.
+type Result<T> = std::result::Result<T, Box<dyn error::Error>>;
+
+
+
+
 #[derive(Debug)]
 pub enum ParseErr {
     // expected public fields
@@ -11,12 +17,15 @@ pub enum ParseErr {
 
 impl Display for ParseErr {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Failed to parse todo file")
+        match self {
+            ParseErr::Empty => write!(f, "Failed to parse todo file"),
+            ParseErr::Malformed(err) => write!(f, "Failed to parse todo file {}", err),
+        }
     }
 }
 
-impl Error for ParseErr {
-}
+impl Error for ParseErr {}
+
 
 #[derive(Debug)]
 pub struct ReadErr {
@@ -26,9 +35,8 @@ pub struct ReadErr {
 
 impl Display for ReadErr {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Failed to parse todo file")
+        write!(f, "Failed to read todo file")
     }
 }
 
-impl Error for ReadErr {
-}
+impl Error for ReadErr {}

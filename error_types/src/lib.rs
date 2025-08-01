@@ -45,7 +45,7 @@ impl Form {
                 "Password should be at least 8 characters long"
             ));
         }
-        if self.password.chars().any(|c| !c.is_alphanumeric()) {
+        if !&self.password.chars().any(|c| c.is_alphanumeric()) {
             return Err(FormError::new(
                 "password",
                 self.password.clone(),
@@ -59,7 +59,7 @@ impl Form {
                 "Password should be a combination of ASCII numbers, letters and symbols"
             ));
         }
-        if !&self.password.chars().any(|c| c.is_alphanumeric()) {
+        if !&self.password.chars().any(|c| !c.is_alphanumeric()) {
             return Err(FormError::new(
                 "password",
                 self.password.clone(),

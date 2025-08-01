@@ -12,7 +12,7 @@ pub struct FormError {
 impl FormError {
     pub fn new(field_name: &'static str, field_value: String, err: &'static str) -> Self {
         return FormError{
-            form_values: (field_name.to_string(), field_value),
+            form_values: (field_name.to_string(), field_value.to_string()),
             date: Local::now().format("%Y-%m-%d %H:%M:%S").to_string(), 
             err : err.to_string(),
         }

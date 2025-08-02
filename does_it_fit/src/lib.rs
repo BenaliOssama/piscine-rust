@@ -3,10 +3,6 @@ pub use areas_volumes::*;
 mod areas_volumes;
 
 
-
-
-
-
 pub fn area_fit(
     (x, y): (usize, usize),
     kind: areas_volumes::GeometricalShapes,
@@ -22,7 +18,7 @@ pub fn area_fit(
         GeometricalShapes::Rectangle => areas_volumes::rectangle_area(a, b) as f64,
         GeometricalShapes::Triangle => areas_volumes::triangle_area(a, b) as f64,
     };
-    rectangle_area > shape_area * times as f64
+    rectangle_area >= shape_area * times as f64
     // done here
 }
 
@@ -32,5 +28,20 @@ pub fn volume_fit(
     times: usize,
     (a, b, c): (usize, usize, usize),
 ) -> bool {
-    todo!()
+    
+    // code here
+    let box_volume = parallelepiped_volume(x, y, z) as f64;
+
+    let shape_volume = match kind {
+        GeometricalVolumes::Cube => cube_volume(a) as f64,
+        GeometricalVolumes::Sphere => sphere_volume(a),
+        GeometricalVolumes::Cone => cone_volume(a, b),
+        GeometricalVolumes::TriangularPyramid => {
+            let base = triangle_area(a, b);
+            triangular_pyramid_volume(base, c)
+        }
+        GeometricalVolumes::Parallelepiped => parallelepiped_volume(a, b, c) as f64,
+    };
+
+    box_volume >= shape_volume * times as f64
 }

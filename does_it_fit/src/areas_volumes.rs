@@ -13,6 +13,8 @@ pub enum GeometricalVolumes {
     Parallelepiped,
 }
 
+
+
 pub(crate) fn square_area(side: usize) -> usize {
     side.pow(2)
 }
@@ -28,6 +30,9 @@ pub(crate) fn circle_area(radius: usize) -> f64 {
 pub(crate) fn rectangle_area(side_a: usize, side_b: usize) -> usize {
     side_a * side_b
 }
+
+
+
 
 pub(crate) fn cube_volume(side: usize) -> usize {
     side.pow(3)
@@ -48,4 +53,6 @@ pub(crate) fn parallelepiped_volume(side_a: usize, side_b: usize, side_c: usize)
 pub(crate) fn cone_volume(base_radius: usize, height: usize) -> f64 {
     (1.0 / 3.0) * std::f64::consts::PI * base_radius.pow(2) as f64 * height as f64
 }
+
+
 

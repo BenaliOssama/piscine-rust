@@ -14,10 +14,7 @@ pub enum ParseErr {
 
 impl Display for ParseErr {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        match self {
-            ParseErr::Empty => write!(f, "Failed to parse todo file"),
-            ParseErr::Malformed(_) => write!(f, "Failed to parse todo file"),
-        }
+           write!(f, "Failed to parse todo file")
     }
 }
 
@@ -25,7 +22,7 @@ impl Error for ParseErr {
     fn source(&self) -> Option<&(dyn Error + 'static)> {
         match self {
             ParseErr::Empty => None,
-            ParseErr::Malformed(err) => Some(&**err),
+            ParseErr::Malformed(_) => Some(self),
         }
     }
 }

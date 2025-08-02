@@ -21,7 +21,7 @@ pub fn calculate_macros(foods: &[Food]) -> json::JsonValue {
 
     for food in foods.iter() {
         cals += food.calories.1.replace("kcal", "").parse::<f64>().unwrap() * food.nbr_of_portions;
-        carbs += food.carbs * food.nbr_of_portions * food.nbr_of_portions;
+        carbs += food.carbs * food.nbr_of_portions;// * food.nbr_of_portions;
         proteins += food.proteins * food.nbr_of_portions;
         fats += food.fats * food.nbr_of_portions;
     }

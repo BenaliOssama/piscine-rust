@@ -25,16 +25,17 @@ pub struct TodoList {
 
 impl TodoList {
     pub fn get_todo(path: &str) -> Result<TodoList, Box<dyn Error>> {
-        let mut file = File::open(path).unwrap();
+        let mut file = match File::open(path) {
+            Ok(file) => file,
+            Err(err)=> return Err(Box::new(err::ReadErr{child_err:Box::new(err)})),
+        };
         let mut json = String::new();
 
         file.read_to_string(&mut json).unwrap();
 
         let parsed = match json::parse(&json) {
             Ok(json) => json,
-            Err(err) => return Err(Box::new(
-                    err::ParseErr::Malformed(Box::new(err))
-            )),
+            Err(err) => return Err(Box::new(err::ParseErr::Malformed(Box::new(err)))),
         };
 
 

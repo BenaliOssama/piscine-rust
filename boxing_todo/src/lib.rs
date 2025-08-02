@@ -6,7 +6,7 @@ use json;
 mod err;
 
 
-use std::error::Error;
+pub use std::error::Error;
 
 #[derive(Debug, Eq, PartialEq)]
 pub struct Task {

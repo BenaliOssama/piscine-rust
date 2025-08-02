@@ -2,11 +2,11 @@ use std::fs::File;
 use std::io::Read;
 use json::JsonValue;
 use json;
-
+pub use err::*;
 mod err;
 
 
-pub use std::error::Error;
+use std::error::Error;
 
 #[derive(Debug, Eq, PartialEq)]
 pub struct Task {

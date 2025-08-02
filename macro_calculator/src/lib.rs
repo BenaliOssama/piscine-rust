@@ -1,4 +1,4 @@
-use json::object;
+use json::{object, JsonValue};
  
 #[derive( Clone, Debug)]
 pub struct Food {
@@ -12,6 +12,9 @@ pub struct Food {
 }
 
 pub fn calculate_macros(foods: &[Food]) -> json::JsonValue {
+    if foods.len() == 0 {
+         return JsonValue::new_object();
+    }
     let food = foods[0].clone();
 
     let mut cals : f64 = 0.0;

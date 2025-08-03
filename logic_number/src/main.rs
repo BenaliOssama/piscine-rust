@@ -1,7 +1,7 @@
 use logic_number::*;
 
 fn main() {
-    let array = [9, 10, 153, 154];
+    let array = [153, 100, 9474, 9475,9_926_315, 9_926_316];
     for pat in &array {
         if number_logic(*pat) == true {
             println!(

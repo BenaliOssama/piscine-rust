@@ -49,9 +49,9 @@ impl Mob {
 
     pub fn attack(&mut self, target: &mut Mob) {
         let (winner, loser) = if self.calculate_power() < target.calculate_power() {
-            (target, self)
-        } else {
             (self, target)
+        } else {
+            (target, self)
         };
 
         let smallest = loser.members.values().map(|m| m.age).min().unwrap();

@@ -13,7 +13,7 @@ pub fn talking(text: &str) -> &str {
         }
     }
     if text.trim().chars().all(|c| c.is_uppercase() || !c.is_alphabetic()) {
-        return "LEAVE ME ALONE!";
+        return "There is no need to yell, calm down!";
     }
 
     return "Interesting";

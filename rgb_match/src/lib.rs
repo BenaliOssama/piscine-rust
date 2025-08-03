@@ -1,71 +1,45 @@
-#[derive(Debug, Clone, Copy, PartialEq)]
-pub struct Color {
-    pub r: u8,
-    pub g: u8,
-    pub b: u8,
-    pub a: u8,
-}
+pub fn pig_latin(text: &str) -> String {
+    let mut result = String::new();
 
-impl Color {
-    pub fn swap(mut self, first: u8, second: u8) -> Color {
-    if self.r == first {
-        if self.g == second {
-            let temp = self.r;
-            self.r = self.g;
-            self.g = temp;
-        } else if self.b == second {
-            let temp = self.r;
-            self.r = self.b;
-            self.b = temp;
-        } else if self.a == second {
-            let temp = self.r;
-            self.r = self.a;
-            self.a = temp;
+    for word in text.split_whitespace() {
+        let mut nb = 0;
+        let word_chars: Vec<char> = word.chars().collect();
+
+        // count how many starting consonants
+        while nb < word_chars.len() && !is_vowel(word_chars[nb]) {
+            nb += 1;
         }
-    } else if self.g == first {
-        if self.r == second {
-            let temp = self.g;
-            self.g = self.r;
-            self.r = temp;
-        } else if self.b == second {
-            let temp = self.g;
-            self.g = self.b;
-            self.b = temp;
-        } else if self.a == second {
-            let temp = self.g;
-            self.g = self.a;
-            self.a = temp;
+
+        // check for "qu" special case
+        if nb >= 2 && nb < word_chars.len() &&
+            word_chars[nb - 1] == 'q' && word_chars[nb] == 'u' {
+            nb += 1;
         }
-    } else if self.b == first {
-        if self.r == second {
-            let temp = self.b;
-            self.b = self.r;
-            self.r = temp;
-        } else if self.g == second {
-            let temp = self.b;
-            self.b = self.g;
-            self.g = temp;
-        } else if self.a == second {
-            let temp = self.b;
-            self.b = self.a;
-            self.a = temp;
+
+        // build new word
+        let mut new_word = String::new();
+
+        for i in nb..word_chars.len() {
+            new_word.push(word_chars[i]);
         }
-    } else if self.a == first {
-        if self.r == second {
-            let temp = self.a;
-            self.a = self.r;
-            self.r = temp;
-        } else if self.g == second {
-            let temp = self.a;
-            self.a = self.g;
-            self.g = temp;
-        } else if self.b == second {
-            let temp = self.a;
-            self.a = self.b;
-            self.b = temp;
+        for i in 0..nb {
+            new_word.push(word_chars[i]);
         }
+
+        new_word.push_str("ay");
+
+        // add space if needed
+        if !result.is_empty() {
+            result.push(' ');
+        }
+        result.push_str(&new_word);
     }
 
-    self
+    result
 }
+
+fn is_vowel(c: char) -> bool {
+    let c = c.to_ascii_lowercase();
+    c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u'
 }
+

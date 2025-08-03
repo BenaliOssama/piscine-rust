@@ -1,20 +1,22 @@
-
-
 pub fn talking(text: &str) -> &str {
-    if text.trim().len() == 0 {
+    let trimmed = text.trim();
+
+    if trimmed.is_empty() {
         return "Just say something!";
-    
     }
-    if text.trim().chars().last().unwrap() == '?' {
-        if text.chars().all(|c| c.is_uppercase() || !c.is_alphabetic() ) {
+
+    if trimmed.chars().last().unwrap() == '?' {
+        if trimmed.chars().all(|c| c.is_uppercase() || !c.is_alphabetic()) {
             return "Quiet, I am thinking!";
-        }else{
+        } else {
             return "Sure.";
         }
     }
-    if text.trim().chars().all(|c| c.is_uppercase() || !c.is_alphabetic()) {
+
+    if trimmed.chars().all(|c| c.is_uppercase() || !c.is_alphabetic()) {
         return "There is no need to yell, calm down!";
     }
 
-    return "Interesting";
+    "Interesting"
 }
+

@@ -1,3 +1,6 @@
+use std::iter;
+
+
 pub fn get_diamond(c: char) -> Vec<String> {
     let distance_from_a = c as u8 - b'A';  
     let size = (distance_from_a as usize) * 2 + 1;  

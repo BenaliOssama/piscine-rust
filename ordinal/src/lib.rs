@@ -3,19 +3,17 @@
 // and keep moving forward
 
 pub fn num_to_ordinal(x: u32) -> String {
-        match x {
-           x if  x.to_string().ends_with("11") && x.to_string().len() > 2 => x.to_string() + "st",
-           x if  x.to_string().ends_with("12") && x.to_string().len() > 2=> x.to_string() + "nd",
-           x if  x.to_string().ends_with("13") && x.to_string().len() > 2=> x.to_string() + "rd",
+    let last_two = x % 100 ; 
 
-           x if  x == 11  => x.to_string() + "th",
-           x if  x == 12  => x.to_string() + "th",
-           x if  x == 13  => x.to_string() + "th",
-
-           x if  x.to_string().ends_with("1") => x.to_string() + "st",
-           x if  x.to_string().ends_with("2") => x.to_string() + "nd",
-           x if  x.to_string().ends_with("3") => x.to_string() + "rd",
-           _ => x.to_string() + "th",
+    if last_two >= 11 && last_two < 13 {
+        format!("{}th", x)
+    }else{
+        match x % 10 {
+            1 => format!("{}st", x),
+            2 => format!("{}nd", x),
+            3 => format!("{}rd", x),
+            _ => format!("{}th", x),
+        }
     }
 }
 

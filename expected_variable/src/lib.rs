@@ -7,7 +7,7 @@ pub fn expected_variable(compare: &str, expected: &str) -> Option<String> {
     let expected = expected.to_lowercase();
     // not logical because it would never be cammel case if lowered
     let compare = compare.to_lowercase();
-
+    println!("{}", compare);
     if ! (/*compare.is_case(Case::Camel) || */compare.is_case(Case::Snake)) {
         return None;
     }
@@ -17,7 +17,7 @@ pub fn expected_variable(compare: &str, expected: &str) -> Option<String> {
 
     let p =  dis * 100 / expected.len() ;
     if p < 50 {
-        Some(format!("{}%",100-  p))
+        Some(format!("{}%",100 - p))
     } else {
         None
     }

@@ -1,28 +1,21 @@
-pub fn scytale_cipher(message: &str, size: usize) -> String {
-    let chars: Vec<char> = message.chars().collect();
-    let length = chars.len();
-
-    let columns = (length + size - 1) / size; 
-
-    let mut grid = vec![vec![' '; columns]; size];
-
-    let mut index = 0;
-    for col in 0..columns {
-        for row in 0..size {
-            if index < length {
-                grid[row][col] = chars[index];
-                index += 1;
-            }
-        }
+pub fn scytale_cipher(s: &str, i: u32) -> String {
+    if i  == 1 || i as usize >= s.chars().count() {
+        return s.to_string();
     }
 
-    let mut result = String::new();
-    for row in 0..size {
-        for col in 0..columns {
-            result.push(grid[row][col]);
-        }
+    let rows = (s.chars().count() as f64 / i as f64).ceil() as usize;
+    let mut array = vec![vec![' '; rows]; i as usize];
+
+
+    // this is smart, fill vertically then just flattern :)
+    for (place, char) in s.chars().enumerate() {
+        let col = place % i as usize;
+        let row = place / i as usize;
+
+        array[col][row] = char;
     }
 
-    return result;
+    array.iter().flatten().collect::<String>().trim_end().to_string()
 }
+
 

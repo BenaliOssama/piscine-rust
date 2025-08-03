@@ -1,7 +1,7 @@
 
 
 pub fn talking(text: &str) -> &str {
-    if text.len()  == 0 {
+    if text.trim().len() == 0 {
         return "Just say something!";
     
     }
@@ -12,7 +12,7 @@ pub fn talking(text: &str) -> &str {
             return "Sure.";
         }
     }
-    if text.chars().all(|c| c.is_uppercase() || c.is_ascii()) {
+    if text.chars().all(|c| c.is_uppercase() || !c.is_ascii()) {
         return "LEAVE ME ALONE!";
     }
 

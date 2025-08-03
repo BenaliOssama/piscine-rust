@@ -1,7 +1,7 @@
 pub fn search(array: &[i32], key: i32) -> Option<usize> {
     for (i , num) in array.iter().rev().enumerate() {
         if key == *num {
-            return Some(array.len() - i); 
+            return Some(array.len() - i - 1 ); 
         }
     }
     None

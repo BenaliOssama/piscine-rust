@@ -5,7 +5,7 @@
 pub fn num_to_ordinal(x: u32) -> String {
     let last_two = x % 100 ; 
 
-    if last_two >= 11 && last_two < 13 {
+    if last_two >= 11 && last_two <= 13 {
         format!("{}th", x)
     }else{
         match x % 10 {

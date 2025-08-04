@@ -1,73 +1,80 @@
 pub fn spell(n: u64) -> String {
-    if n == 0 {
-        return "zero".to_string();
+    match n {
+        0..=99 => spells_below_100(n),
+        100..=999 => spells_hundreds(n),
+        1_000..=999_999 => spells_bignum(n),
+        1_000_000 => "one million".to_string(),
+        _ => "".to_string(),
     }
+}
 
-    // Helper arrays for numbers below 20 and tens
-    let below_20 = [
-        "", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
-        "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen",
-        "eighteen", "nineteen",
-    ];
-    
-    let tens = [
-        "", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety",
-    ];
-
-    // Helper function for numbers less than 20
-    fn less_than_20(n: u64, below_20: &[&str]) -> String {
-        below_20[n as usize].to_string()
-    }
-
-    // Helper function for numbers less than 100
-    fn less_than_100(n: u64, below_20: &[&str], tens: &[&str]) -> String {
-        if n < 20 {
-            less_than_20(n, below_20)
-        } else {
-            let ten = n / 10;
-            let rest = n % 10;
-            if rest == 0 {
-                tens[ten as usize].to_string()
-            } else {
-                format!("{}-{}", tens[ten as usize], less_than_20(rest, below_20))
-            }
+pub fn spells_below_100(n: u64) -> String {
+    match n {
+        0 => "zero".to_string(),
+        1 => "one".to_string(),
+        2 => "two".to_string(),
+        3 => "three".to_string(),
+        4 => "four".to_string(),
+        5 => "five".to_string(),
+        6 => "six".to_string(),
+        7 => "seven".to_string(),
+        8 => "eight".to_string(),
+        9 => "nine".to_string(),
+        10 => "ten".to_string(),
+        11 => "eleven".to_string(),
+        12 => "twelve".to_string(),
+        13 => "thirteen".to_string(),
+        14 => "fourteen".to_string(),
+        15 => "fifteen".to_string(),
+        16 => "sixteen".to_string(),
+        17 => "seventeen".to_string(),
+        18 => "eighteen".to_string(),
+        19 => "nineteen".to_string(),
+        20 => "twenty".to_string(),
+        30 => "thirty".to_string(),
+        40 => "forty".to_string(),
+        50 => "fifty".to_string(),
+        60 => "sixty".to_string(),
+        70 => "seventy".to_string(),
+        80 => "eighty".to_string(),
+        90 => "ninety".to_string(),
+        _ => {
+            let rem = n % 10;
+            format!("{}-{}", spells_below_100(n - rem), spells_below_100(rem))
         }
     }
+}
 
-    // Helper function for numbers less than 1000
-    fn less_than_1000(n: u64, below_20: &[&str], tens: &[&str]) -> String {
-        let hundred = n / 100;
-        let rest = n % 100;
-        if rest == 0 {
-            format!("{} hundred", less_than_20(hundred, below_20))
-        } else {
-            format!("{} hundred {}", less_than_20(hundred, below_20), less_than_100(rest, below_20, tens))
+pub fn spells_hundreds(n: u64) -> String {
+    let div = n / 100;
+    let rem = n % 100;
+    let mut enc_str = format!("{} hundred", spells_below_100(div));
+    if rem != 0 {
+        enc_str = format!("{} {}", enc_str, spells_below_100(rem));
+    }
+    enc_str
+}
+
+pub fn spells_bignum(n: u64) -> String {
+    let mut enc_chunks: Vec<String> = vec![];
+    let mut chunks: Vec<u64> = vec![0; 1];
+    let mut m = n;
+    for e in chunks.iter_mut() {
+        let rem = m % 1_000;
+        m = m / 1_000;
+        *e += rem;
+    }
+    for (idx, chunk) in chunks.into_iter().enumerate() {
+        let substr = match idx {
+            0 => "",
+            1 => "thousand",
+            _ => "",
+        };
+        if chunk != 0 {
+            enc_chunks.push(format!("{} {}", spell(chunk), substr).trim().to_string());
         }
     }
-
-    // Helper function for numbers less than 1,000,000
-    fn less_than_million(n: u64, below_20: &[&str], tens: &[&str]) -> String {
-        let thousand = n / 1000;
-        let rest = n % 1000;
-        if rest == 0 {
-            // Special case: If the number is exactly a multiple of 1000, don't add "hundred"
-            return format!("{} thousand", less_than_1000(thousand, below_20, tens));
-        } else {
-            format!("{} thousand {}", less_than_1000(thousand, below_20, tens), less_than_1000(rest, below_20, tens))
-        }
-    }
-
-    // Main logic
-    if n < 20 {
-        less_than_20(n, &below_20)
-    } else if n < 100 {
-        less_than_100(n, &below_20, &tens)
-    } else if n < 1000 {
-        less_than_1000(n, &below_20, &tens)
-    } else if n < 1_000_000 {
-        less_than_million(n, &below_20, &tens)
-    } else {
-        "one million".to_string()
-    }
+    enc_chunks.reverse();
+    enc_chunks.join(" ")
 }
 

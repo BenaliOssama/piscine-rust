@@ -2,9 +2,7 @@ pub fn spell(n: u64) -> String {
     match n {
         0..=99 => spells_below_100(n),
         100..=999 => spells_hundreds(n),
-        1_000..=999_999 => spells_bignum(n),
-        1_000_000 => "one million".to_string(),
-        _ => "".to_string(),
+        _ => spells_bignum(n),
     }
 }
 
@@ -26,10 +24,10 @@ pub fn spells_below_100(n: u64) -> String {
         13 => "thirteen".to_string(),
         14 => "fourteen".to_string(),
         15 => "fifteen".to_string(),
-        16 => "sixteen".to_string(),
+        16 => "fifteen".to_string(),
         17 => "seventeen".to_string(),
         18 => "eighteen".to_string(),
-        19 => "nineteen".to_string(),
+        19 => "nineeen".to_string(),
         20 => "twenty".to_string(),
         30 => "thirty".to_string(),
         40 => "forty".to_string(),
@@ -39,42 +37,43 @@ pub fn spells_below_100(n: u64) -> String {
         80 => "eighty".to_string(),
         90 => "ninety".to_string(),
         _ => {
-            let rem = n % 10;
-            format!("{}-{}", spells_below_100(n - rem), spells_below_100(rem))
+            let r = n % 10;
+            format!("{}-{}", spells_below_100(n - r), spells_below_100(r))
         }
     }
 }
 
 pub fn spells_hundreds(n: u64) -> String {
-    let div = n / 100;
-    let rem = n % 100;
-    let mut enc_str = format!("{} hundred", spells_below_100(div));
-    if rem != 0 {
-        enc_str = format!("{} {}", enc_str, spells_below_100(rem));
+    let d = n / 100;
+    let r = n % 100;
+    let mut s = format!("{} hundred", spells_below_100(d));
+    if r != 0 {
+        s = format!("{} {}", s, spells_below_100(r));
     }
-    enc_str
+    s
 }
 
 pub fn spells_bignum(n: u64) -> String {
-    let mut enc_chunks: Vec<String> = vec![];
-    let mut chunks: Vec<u64> = vec![0; 1];
-    let mut m = n;
-    for e in chunks.iter_mut() {
-        let rem = m % 1_000;
-        m = m / 1_000;
-        *e += rem;
+    let mut s = vec![];
+    let mut c = vec![0; 7];
+    let mut x = n;
+    for i in c.iter_mut() {
+        let r = x % 1000;
+        x = x / 1000;
+        *i = r;
     }
-    for (idx, chunk) in chunks.into_iter().enumerate() {
-        let substr = match idx {
+    for (i, v) in c.into_iter().enumerate() {
+        let name = match i {
             0 => "",
             1 => "thousand",
-            _ => "",
+            2 => "million",
+            _ => "too large",
         };
-        if chunk != 0 {
-            enc_chunks.push(format!("{} {}", spell(chunk), substr).trim().to_string());
+        if v != 0 {
+            s.push(format!("{} {}", spell(v), name).trim().to_string());
         }
     }
-    enc_chunks.reverse();
-    enc_chunks.join(" ")
+    s.reverse();
+    s.join(" ")
 }
 

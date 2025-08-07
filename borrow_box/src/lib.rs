@@ -26,14 +26,8 @@ impl GameSession {
     }
 
     pub fn update_score(&mut self, user_name: &str) {
-        let game_over = if self.nb_games <= 5 {
-            self.p1.1 >= 3 || self.p2.1 >= 3
-        } else if self.nb_games <= 11 {
-            self.p1.1 >= 6 || self.p2.1 >= 6
-        } else {
-            false
-        };
-
+        let game_over = self.nb_games <=  self.p1.1 * 2 
+    || self.nb_games <=  self.p2.1 * 2 ;
         if game_over {
             return;
         }

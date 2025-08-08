@@ -66,11 +66,11 @@ impl WorkEnvironment {
         return Some(worker);
     }
 
-    pub fn last_worker(&self) -> Option<(String, Role)> {
+    pub fn last_worker(&self) -> Option<(String, String)> {
         return Some(
             (
                 self.grade.clone().unwrap().name,
-                Role::from(self.grade.clone().unwrap().role.as_str())
+                self.grade.clone().unwrap().role
             )
         );
     }

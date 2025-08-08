@@ -37,7 +37,7 @@ fn main() {
 
     track
         .messages
-//        .borrow()
+        .borrow()
         .iter()
         .for_each(|msg| println!("{}", msg));
 }

@@ -14,13 +14,7 @@ impl Node {
     }
 
     pub fn rm_all_ref(&mut self, element: Rc<String>) {
-        let mut pos : i32 = 0 ; 
-        for (i, e) in self.ref_list.clone().iter().enumerate() {
-            if **e == *element {
-                self.ref_list.remove(i - pos as usize);
-                pos +=  1;
-            }            
-        }
+        self.ref_list.retain(|e| {**e != *element});
     }
 }
 

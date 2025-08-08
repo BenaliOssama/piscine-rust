@@ -1,4 +1,4 @@
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Clone)]
 pub enum Role {
     CEO,
     Manager,
@@ -24,7 +24,7 @@ pub struct WorkEnvironment {
 pub type Link = Option<Box<Worker>>;
 #[derive(Debug, Clone)]
 pub struct Worker {
-    pub role: String,
+    pub role: Role,
     pub name: String,
     pub next: Link,
 }
@@ -41,7 +41,7 @@ impl WorkEnvironment {
              role = "Worker"; 
         }
         let mut worker = Worker{
-            role: role.to_string(),
+            role: role.into(),//.to_string(),
             name: name.to_string(),
             next: None,
         };
@@ -66,7 +66,7 @@ impl WorkEnvironment {
         return Some(worker);
     }
 
-    pub fn last_worker(&self) -> Option<(String, String)> {
+    pub fn last_worker(&self) -> Option<(String, Role)> {
         return Some(
             (
                 self.grade.clone().unwrap().name,

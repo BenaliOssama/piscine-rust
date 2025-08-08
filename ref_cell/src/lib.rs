@@ -14,23 +14,19 @@ impl Tracker {
     }
 
     pub fn set_value(&self, value : &Rc<usize>) {
+        let new_value = Rc::strong_count(value);
 
-        let current_value = *self.value.borrow();
+        if new_value * 100 / self.max >=  75 && new_value < self.max {
 
-        if current_value * 100 / self.max >=  75 && current_value < self.max {
-            let mut val_msg = self.messages.borrow_mut();
-
-            val_msg.push(
+            self.messages.borrow_mut().push(
                 format!("Warning: You have used up over {}% of your quota!",
-                current_value * 100 / (self.max ) )
+                new_value * 100 / (self.max ) )
             );
 
-        }else if current_value > self.max {
-            let mut val_mut = self.messages.borrow_mut();
-            val_mut.push("Error: You can't go over your quota!".to_string());
-        }else{
-            *self.value.borrow_mut() = Rc::strong_count(value);
+        }else if new_value > self.max {
+            self.messages.borrow_mut().push("Error: You can't go over your quota!".to_string());
         }
+        *self.value.borrow_mut() = new_value; 
     }
 
     pub fn peek(&self, arg: &Rc<usize>){

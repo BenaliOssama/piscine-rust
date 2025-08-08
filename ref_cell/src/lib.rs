@@ -13,7 +13,7 @@ impl Tracker {
         Tracker{messages: RefCell::new(vec![]), value : RefCell::new(0) , max: max }
     }
 
-    pub fn set_value(&mut self, value : &Rc<usize>) {
+    pub fn set_value(&self, value : &Rc<usize>) {
 
         let current_value = *self.value.borrow();
 
@@ -29,11 +29,11 @@ impl Tracker {
             let mut val_mut = self.messages.borrow_mut();
             val_mut.push("Error: You can't go over your quota!".to_string());
         }else{
-            self.value = RefCell::new(Rc::strong_count(value));
+            *self.value.borrow_mut() = Rc::strong_count(value);
         }
     }
 
-    pub fn peek(&mut self, arg: &Rc<usize>){
+    pub fn peek(&self, arg: &Rc<usize>){
         let count : usize = Rc::strong_count(arg);
         let percent : usize = count * 100 / self.max;
 

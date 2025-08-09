@@ -11,43 +11,50 @@ impl ThreadPool {
         ThreadPool{drops: Cell::new(0), states: RefCell::new(vec![])}
     }
 
-    pub fn new_thread(&self, c: String) -> (usize, Thread) {
-        todo!()
+    pub fn new_thread(&self, c: String) -> (usize, Thread<'_>) {
+        let id = self.states.borrow().len();
+        self.states.borrow_mut().push(false);
+        return (id ,Thread::new(id, c, &self));
     }
 
     pub fn thread_len(&self) -> usize {
-        todo!()
+        return self.states.borrow().len();
     }
 
     pub fn is_dropped(&self, id: usize) -> bool {
-        todo!()
+        return self.states.borrow()[id];
     }
 
     pub fn drop_thread(&self, id: usize) {
-        todo!()
+        if self.states.borrow()[id] /*.len() < id*/  {
+            panic!("{} is already dropped", id);
+        }
+        self.states.borrow_mut()[id] = true; 
+        self.drops.set(self.drops.get() +1);
     }
 }
 
 #[derive(Debug)]
 pub  struct Thread <'a> {
-    pid : usize,
-    cmd: String,
-    parent: &'a ThreadPool,
+    pub pid : usize,
+    pub cmd: String,
+    pub parent: &'a ThreadPool,
 }
 
 impl<'a> Thread<'a> {
     pub fn new(p: usize, c: String, t: &'a ThreadPool) -> Self {
-        todo!()
+        return Thread{pid: p, cmd: c, parent: t};
     }
 
     pub fn skill(self) {
-        todo!()
+        //self.parent.drops.set(self.parent.drops.get() + 1);
+        let _ = self;
     }
 }
 
 impl<'a> Drop for Thread<'a> {
     fn drop(&mut self) {
-        self.parent.states.borrow_mut().push(true);
+        self.parent.drop_thread(self.pid);//states.borrow_mut().push(true);
     }
 }
 

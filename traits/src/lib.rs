@@ -50,6 +50,6 @@ impl Food for Meat {
         let pro = (1.0 - self.fat_content) * 4.0 ;
         
 
-        return self.fat_content*0.9 + pro ;
+        return self.fat_content*9.0 + pro ;
     }
 }

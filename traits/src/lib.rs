@@ -47,9 +47,9 @@ impl Food for Fruit {
 impl Food for Meat {
     fn gives(&self) -> f64 {
 
-        let pro = (1.0 - self.fat_content) * 4.0 ;
+        let pro = (1.0 - self.fat_content) * 4.0;
         
 
-        return self.fat_content*9.0 + pro ;
+        return self.fat_content *9.0 + pro ;
     }
 }

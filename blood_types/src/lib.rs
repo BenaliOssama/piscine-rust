@@ -34,7 +34,7 @@ impl FromStr for Antigen {
             "B"=> antigine = Antigen::B,
             "AB"=> antigine = Antigen::AB,
             "O"=> antigine = Antigen::O,
-            _ => panic("no blood type"),
+            _ => panic!("no blood type"),
         }
         return Ok(antigine);// antigine};
     }

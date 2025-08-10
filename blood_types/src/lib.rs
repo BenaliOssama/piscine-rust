@@ -34,7 +34,10 @@ impl FromStr for Antigen {
             "B"=> antigine = Antigen::B,
             "AB"=> antigine = Antigen::AB,
             "O"=> antigine = Antigen::O,
-            _ => panic!("no blood type"),
+            other => {
+                return Err(format!("`{}` is not a valid antigen", other));
+            },
+
         }
         return Ok(antigine);// antigine};
     }

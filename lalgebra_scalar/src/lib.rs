@@ -56,13 +56,24 @@ impl Scalar for i64{
 
 }
 impl Scalar for f64 {
-    type Item = u64;
+    type Item = f64;
     fn zero()-> Self::Item{
-        0 
+        0.0 
     }
 
     fn one() -> Self::Item{
-        1 
+        1.0 
+    }
+
+}
+impl Scalar for f32{
+    type Item = f64;
+    fn zero()-> Self::Item{
+        0.0
+    }
+
+    fn one() -> Self::Item{
+        1.0
     }
 
 }

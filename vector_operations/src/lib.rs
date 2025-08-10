@@ -8,12 +8,8 @@ pub struct ThreeDVector<T> {
 }
 
 // Add implementation
-impl<T> Add for ThreeDVector<T>
-where
-    T: Add<Output = T>,
-{
+impl<T> Add for ThreeDVector<T> where T: Add<Output = T>{
     type Output = Self;
-
     fn add(self, other: Self) -> Self {
         Self {
             i: self.i + other.i,

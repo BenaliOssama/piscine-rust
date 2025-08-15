@@ -1,9 +1,9 @@
 use lalgebra_scalar::Scalar;
-use lalgebra_vector::Vector;
+
 
 use std::ops::{Add, Div, Mul, Sub};
 
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Clone)]
 pub struct Matrix<T>(pub Vec<Vec<T>>);
 
 impl<T: Scalar<Item = T>> Matrix<T> {
@@ -50,27 +50,69 @@ impl<T: Scalar<Item = T>> Add for Matrix<T> {
     }
 }
 
-impl Matrix<T> {
+impl<T: Scalar<Item=T>> Matrix<T> {
     pub fn number_of_cols(&self) -> usize {
-		todo!()
+		self.0.len();
 	}
 
     pub fn number_of_rows(&self) -> usize {
-		todo!()
+		return if self.0.len() == 0 {
+			0
+		}else{
+			self.0.0.len()
+		}
 	}
 
     pub fn row(&self, n: usize) -> Vec<T> {
-		todo!()
+		return self.0[n];
 	}
 
     pub fn col(&self, n: usize) -> Vec<T> {
-		todo!()
+		//return self.[n]
 	}
 }
 
-impl<T: Scalar<Item = T >> Sub for Matrix<T> {
+impl<T: Scalar<Item = T >> Mul for Matrix<T> {
     type Output = Option<Matrix<T>>;
-    fn mul(self, m: Matrix<T>) -> <Self as Add<Matrix<T>>>::Output {
-		todo!()
+    fn mul(self, mm : Matrix<T>) -> <Self as Add<Matrix<T>>>::Output {
+		let n = self.number_of_cols();
+		let m = self.number_of_rows();
+
+		let n2 = mm.number_of_cols();
+		let p = mm.number_of_rows();
+
+		if n != n2 {
+			return None;
+		}
+
+		let mut result = Matrix::zero(m, p);
+
+		for i in 0..m{
+			for j in 0..p {
+				let mut sum  = <T as Scalar>::zero()  ;
+				for k in 0..n {
+					sum = sum + self.0[i][k] * mm.0[k][j];
+				}
+				result.0[i][j] = sum;
+			}
+		}
+		return Some(result);
+
 	}
 }
+// function multiply_matrices(A, B):
+//     (m, n) = dimensions of A
+//     (n2, p) = dimensions of B
+//     if n != n2:
+//         error "incompatible sizes"
+
+//     Create C as m × p zero matrix
+
+//     for i from 0 to m-1:          // rows of A
+//         for j from 0 to p-1:      // columns of B
+//             sum = 0
+//             for k from 0 to n-1:  // columns of A / rows of B
+//                 sum = sum + A[i][k] * B[k][j]
+//             C[i][j] = sum
+
+//     return C

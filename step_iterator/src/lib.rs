@@ -2,6 +2,7 @@ pub struct StepIterator<T> {
     start : T,
     end: T,
     step: T,
+    done : bool,
 }
 
 use std::ops::Add;
@@ -11,6 +12,7 @@ impl<T: Copy + Add<Output = T> + PartialOrd + PartialEq> StepIterator<T> {
             start,
             end,
             step,
+            done : false,
         }
     }
 }
@@ -18,10 +20,11 @@ impl<T: Copy + Add<Output = T> + PartialOrd + PartialEq> StepIterator<T> {
 impl<T: PartialEq + Add<Output = T> + PartialOrd + Copy> std::iter::Iterator for StepIterator<T> {
     type Item = T;
     fn next(&mut self) -> Option<Self::Item> {
-        if self.start + self.step > self.end {
+        if self.start  > self.end {
             return None;
         }
+        let res = self.start ;
         self.start = self.start + self.step;
-        Some(self.start)
+        Some(res)
     }
 }

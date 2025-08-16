@@ -52,23 +52,30 @@ impl<T: Scalar<Item = T>> Add for Matrix<T> {
 
 impl<T: Scalar<Item=T>> Matrix<T> {
     pub fn number_of_cols(&self) -> usize {
-		self.0.len();
+		self.0.len()
 	}
 
     pub fn number_of_rows(&self) -> usize {
 		return if self.0.len() == 0 {
 			0
 		}else{
-			self.0.0.len()
+			self.0[0].len()
 		}
 	}
 
     pub fn row(&self, n: usize) -> Vec<T> {
-		return self.0[n];
+		return self.0[n].clone();
 	}
 
     pub fn col(&self, n: usize) -> Vec<T> {
-		//return self.[n]
+        if self.number_of_rows() < n + 1  {
+            return vec![];
+        }
+        let mut v : Vec<T> = vec![];
+        for i in 0..self.number_of_cols(){
+            v.push(self.0[i][n])
+        }
+        return v ;
 	}
 }
 

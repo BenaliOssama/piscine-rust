@@ -1,8 +1,8 @@
-use roman_numbers::RomanNumber;
+use roman_numbers_iterator::RomanNumber;
 
 fn main() {
-	println!("{:?}", RomanNumber::from(32));
-	println!("{:?}", RomanNumber::from(9));
-	println!("{:?}", RomanNumber::from(45));
-	println!("{:?}", RomanNumber::from(0));
+    let mut number = RomanNumber::from(15);
+
+    println!("{:?}", number);
+    println!("{:?}", number.next());
 }

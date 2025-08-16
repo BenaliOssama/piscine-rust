@@ -1,7 +1,6 @@
 use crate::RomanDigit::*;
 
-#[derive(Copy, Clone, Debug, PartialEq, Eq)]
-pub enum RomanDigit {
+#[derive(omanDigit {
 	Nulla,
 	I,
 	V,

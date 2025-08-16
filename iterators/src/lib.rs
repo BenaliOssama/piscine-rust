@@ -32,7 +32,7 @@ pub fn collatz(n: u64) -> usize {
     let mut count = 0;
     let mut n = n;
     while n != 1 {
-        if n | 1 != n{
+        if n & 1 == 0{
             n /= 2;
         } else {
             n = 3 * n + 1;
